@@ -9,16 +9,16 @@ def test_category_init(test_category):
 
 
 def test_products_count(test_product):
-    Category.products_length = 0
+    Category.product_count = 0
     product = test_product
 
     category = Category("Test Category", "Test Description", [product])
-    assert category.products_length == 1
+    assert category.product_count == 1
 
 
 def test_categories_count():
-    Category.categories = 0
+    Category.category_count = 0
     Category("Test Category 1", "Test Description 1", [])
     Category("Test Category 2", "Test Description 2", [])
 
-    assert Category.categories == 2
+    assert Category.category_count == 2
