@@ -1,11 +1,11 @@
 from src.category import Category
-
+from src.product import Product
 
 def test_category_init(test_category):
     assert test_category.name == "Test Category"
     assert test_category.description == "Test Description"
-    assert len(test_category.products) == 1
-    assert test_category.products[0].name == "Test Product"
+
+    assert test_category.products == "Test Product, 100 руб. Остаток: 10 шт."
 
 
 def test_products_count(test_product):
@@ -22,3 +22,15 @@ def test_categories_count():
     Category("Test Category 2", "Test Description 2", [])
 
     assert Category.category_count == 2
+
+
+def test_add_product(test_category):
+    product = Product(
+        "Test Product",
+        "Test Description",
+        100,
+        10)
+
+    test_category.add_product(product)
+
+    assert "Test Product, 100 руб. Остаток: 10 шт." in test_category.products
