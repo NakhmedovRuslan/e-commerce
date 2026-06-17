@@ -34,3 +34,13 @@ def test_price_setter(test_product):
 
     assert test_product.price == 500
 
+def test_magic_add():
+    product1 = Product("Test product 1", "Test desc 1", 100, 10)
+    product2 = Product("Test product 2", "Test desc 2", 200, 2)
+
+    assert product1 + product2 == 100 * 10 + 200 * 2
+
+def test_magic_str():
+    product = Product("Test Product", "Test desc", 100, 10)
+
+    assert str(product) == "Test Product, 100 руб. Остаток: 10 шт."

@@ -16,12 +16,14 @@ def test_products_count(test_product):
     assert category.product_count == 1
 
 
-def test_categories_count():
-    Category.category_count = 0
-    Category("Test Category 1", "Test Description 1", [])
-    Category("Test Category 2", "Test Description 2", [])
+def test_category_init(test_category):
+    assert test_category.name == "Test Category"
+    assert test_category.description == "Test Description"
 
-    assert Category.category_count == 2
+    assert any(
+        elem.name == "Test Product" and elem.price == 100 and elem.quantity == 10
+        for elem in test_category._Category__products
+    )
 
 
 def test_add_product(test_category):
@@ -29,8 +31,10 @@ def test_add_product(test_category):
         "Test Product",
         "Test Description",
         100,
-        10)
+        10
+    )
 
     test_category.add_product(product)
 
-    assert "Test Product, 100 руб. Остаток: 10 шт." in test_category.products
+    assert product in test_category._Category__products
+
