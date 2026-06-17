@@ -3,6 +3,7 @@ from src.product import Product
 
 class Category:
     """Класс для категорий товаров"""
+
     category_count = 0
     product_count = 0
 

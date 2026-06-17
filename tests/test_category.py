@@ -1,12 +1,6 @@
 from src.category import Category
 from src.product import Product
 
-def test_category_init(test_category):
-    assert test_category.name == "Test Category"
-    assert test_category.description == "Test Description"
-
-    assert test_category.products == "Test Product, 100 руб. Остаток: 10 шт."
-
 
 def test_products_count(test_product):
     Category.product_count = 0
@@ -27,14 +21,8 @@ def test_category_init(test_category):
 
 
 def test_add_product(test_category):
-    product = Product(
-        "Test Product",
-        "Test Description",
-        100,
-        10
-    )
+    product = Product("Test Product", "Test Description", 100, 10)
 
     test_category.add_product(product)
 
     assert product in test_category._Category__products
-

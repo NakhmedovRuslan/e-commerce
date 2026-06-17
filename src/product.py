@@ -1,5 +1,6 @@
 class Product:
     """Класс для товаров"""
+
     def __init__(
         self, name: str, description: str, price: float, quantity: int
     ) -> None:
@@ -21,7 +22,8 @@ class Product:
             product_data["name"],
             product_data["description"],
             product_data["price"],
-            product_data["quantity"])
+            product_data["quantity"],
+        )
 
     @property
     def price(self) -> float:
@@ -33,7 +35,6 @@ class Product:
             print("Цена не должна быть нулевая или отрицательная")
             return
         self.__price = price
-
 
     def __add__(self, other):
         return (self.price * self.quantity) + (other.price * other.quantity)
