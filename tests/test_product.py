@@ -1,6 +1,6 @@
 import pytest
 
-from src.product import Product, Smartphone
+from src.product import Product, Smartphone, LawnGrass
 
 
 def test_product_init(test_product):
@@ -99,6 +99,20 @@ def test_add_subclass_product(test_category):
     test_category.add_product(smartphone)
 
     assert smartphone in test_category.products
+
+
+def test_add_subclass_product_lawngrass(test_category):
+    grass = LawnGrass(
+        "test grass",
+        "test desc",
+        500.0,
+        20,
+        "Россия",
+        "7 дней",
+        "Зеленый",
+    )
+    test_category.add_product(grass)
+    assert grass in test_category.products
 
 
 def test_add_product_type_error(test_category):
