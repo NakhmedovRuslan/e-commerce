@@ -1,4 +1,6 @@
-from src.product import Product
+import pytest
+
+from src.product import Product, Smartphone, LawnGrass
 
 
 def test_product_init(test_product):
@@ -40,8 +42,27 @@ def test_price_setter(test_product):
 
 
 def test_magic_add():
-    product1 = Product("Test product 1", "Test desc 1", 100, 10)
-    product2 = Product("Test product 2", "Test desc 2", 200, 2)
+    product1 = Smartphone(
+        "Test 1",
+        "Desc",
+        100,
+        10,
+        95,
+        "Test model",
+        256,
+        "Black",
+    )
+
+    product2 = Smartphone(
+        "Test 2",
+        "Desc",
+        200,
+        2,
+        98,
+        "Test model",
+        128,
+        "Gray",
+    )
 
     assert product1 + product2 == 100 * 10 + 200 * 2
 
@@ -50,3 +71,50 @@ def test_magic_str():
     product = Product("Test Product", "Test desc", 100, 10)
 
     assert str(product) == "Test Product, 100 руб. Остаток: 10 шт."
+
+
+def test_add_product(test_category):
+    product = Product("Test Product", "Test desc", 100, 10)
+
+    products_before = len(test_category.products)
+
+    test_category.add_product(product)
+
+    assert product in test_category.products
+    assert len(test_category.products) == products_before + 1
+
+
+def test_add_subclass_product(test_category):
+    smartphone = Smartphone(
+        "Test product",
+        "Test desc",
+        100000,
+        5,
+        95.5,
+        "test model",
+        256,
+        "Black",
+    )
+
+    test_category.add_product(smartphone)
+
+    assert smartphone in test_category.products
+
+
+def test_add_subclass_product_lawngrass(test_category):
+    grass = LawnGrass(
+        "test grass",
+        "test desc",
+        500.0,
+        20,
+        "Россия",
+        "7 дней",
+        "Зеленый",
+    )
+    test_category.add_product(grass)
+    assert grass in test_category.products
+
+
+def test_add_product_type_error(test_category):
+    with pytest.raises(TypeError):
+        test_category.add_product("Not a product")

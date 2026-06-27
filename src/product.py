@@ -37,10 +37,36 @@ class Product:
         self.__price = price
 
     def __add__(self, other):
-        return (self.price * self.quantity) + (other.price * other.quantity)
+        if type(other) is Smartphone:
+            return (self.price * self.quantity) + (other.price * other.quantity)
+        elif type(other) is LawnGrass:
+            return (self.price * self.quantity) + (other.price * other.quantity)
+        else:
+            raise TypeError
 
     def __str__(self):
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
     def __repr__(self):
         return f"{self.name, self.description, self.price, self.quantity}"
+
+
+class Smartphone(Product):
+    def __init__(
+        self, name, description, price, quantity, efficiency, model, memory, color
+    ) -> None:
+        super().__init__(name, description, price, quantity)
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+
+class LawnGrass(Product):
+    def __init__(
+        self, name, description, price, quantity, country, germination_period, color
+    ) -> None:
+        super().__init__(name, description, price, quantity)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color

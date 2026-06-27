@@ -16,8 +16,12 @@ class Category:
         Category.product_count += len(products)
 
     def add_product(self, product: Product):
-        self.__products.append(product)
-        Category.product_count += 1
+        """Метод, добавляющий объект в категорию, если объект относится к классу"""
+        if isinstance(product, Product):
+            self.__products.append(product)
+            Category.product_count += 1
+        else:
+            raise TypeError
 
     @property
     def products(self):
