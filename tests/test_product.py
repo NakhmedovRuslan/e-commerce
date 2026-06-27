@@ -1,6 +1,6 @@
 import pytest
 
-from src.product import Product, Smartphone, LawnGrass
+from src.product import LawnGrass, Product, Smartphone
 
 
 def test_product_init(test_product):
@@ -31,7 +31,7 @@ def test_price(capsys, test_product_price_lower):
     default_price = test_product_price_lower.price
     test_product_price_lower.price = -100
     captured = capsys.readouterr()
-    assert captured.out == "Цена не должна быть нулевая или отрицательная\n"
+    assert "Цена не должна быть нулевая или отрицательная" in captured.out
     assert test_product_price_lower.price == default_price
 
 
@@ -118,3 +118,11 @@ def test_add_subclass_product_lawngrass(test_category):
 def test_add_product_type_error(test_category):
     with pytest.raises(TypeError):
         test_category.add_product("Not a product")
+
+
+def test_print_mixin(capsys):
+    Product("Test Product", "Test Description", 100, 10)
+
+    captured = capsys.readouterr()
+
+    assert captured.out == "Product(Test Product, Test Description, 100, 10)\n"
