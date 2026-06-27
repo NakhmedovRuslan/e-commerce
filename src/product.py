@@ -1,13 +1,39 @@
-class Product:
-    """Класс для товаров"""
+from abc import ABC, abstractmethod
 
+
+class BaseProduct(ABC):
     def __init__(
         self, name: str, description: str, price: float, quantity: int
     ) -> None:
         self.name = name
         self.description = description
-        self.__price = price
+        self.price = price
         self.quantity = quantity
+
+    @abstractmethod
+    def total_cost(self) -> float:
+        pass
+
+
+class PrintMixin:
+    def __init__(self, name: str, description: str, price: float, quantity: int):
+        super().__init__(name, description, price, quantity)
+        print(repr(self))
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
+
+
+class Product(PrintMixin, BaseProduct):
+    """Класс для товаров"""
+
+    def __init__(
+        self, name: str, description: str, price: float, quantity: int
+    ) -> None:
+        super().__init__(name, description, price, quantity)
+
+    def total_cost(self):
+        return self.price * self.quantity
 
     @classmethod
     def new_product(cls, product_data: dict, products: list = None):
@@ -47,8 +73,8 @@ class Product:
     def __str__(self):
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
-    def __repr__(self):
-        return f"{self.name, self.description, self.price, self.quantity}"
+    # def __repr__(self):
+    #     return f"{self.name, self.description, self.price, self.quantity}"
 
 
 class Smartphone(Product):
@@ -61,6 +87,9 @@ class Smartphone(Product):
         self.memory = memory
         self.color = color
 
+    def total_cost(self):
+        return f"Смартфонов всего на сумму: {self.price * self.quantity}"
+
 
 class LawnGrass(Product):
     def __init__(
@@ -70,3 +99,6 @@ class LawnGrass(Product):
         self.country = country
         self.germination_period = germination_period
         self.color = color
+
+    def total_cost(self):
+        return f"Газонной травы всего на сумму: {self.price * self.quantity}"
