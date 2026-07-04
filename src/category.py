@@ -30,3 +30,10 @@ class Category:
     def __str__(self):
         total_quantity = sum([product.quantity for product in self.__products])
         return f"{self.name}, количество продуктов: {total_quantity}"
+
+    def middle_price(self) -> float:
+        total_price = sum(product.price for product in self.__products)
+        try:
+            return total_price / len(self.__products)
+        except ZeroDivisionError:
+            return 0

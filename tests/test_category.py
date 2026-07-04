@@ -26,3 +26,13 @@ def test_add_product(test_category):
     test_category.add_product(product)
 
     assert product in test_category._Category__products
+
+
+def test_middle_price(test_category):
+    assert test_category.middle_price() == 100
+
+
+def test_middle_price_empty():
+    category = Category(name="Пустая категория", description="Нет товаров", products=[])
+
+    assert category.middle_price() == 0

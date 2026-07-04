@@ -126,3 +126,15 @@ def test_print_mixin(capsys):
     captured = capsys.readouterr()
 
     assert captured.out == "Product(Test Product, Test Description, 100, 10)\n"
+
+
+def test_quantity_empty():
+    with pytest.raises(
+        ValueError, match="Товар с нулевым количеством не может быть добавлен"
+    ):
+        Product(
+            name="Test Product",
+            description="Test Description",
+            price=100,
+            quantity=0,
+        )
