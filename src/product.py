@@ -31,6 +31,8 @@ class Product(PrintMixin, BaseProduct):
         self, name: str, description: str, price: float, quantity: int
     ) -> None:
         super().__init__(name, description, price, quantity)
+        if quantity <= 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
 
     def total_cost(self):
         return self.price * self.quantity
